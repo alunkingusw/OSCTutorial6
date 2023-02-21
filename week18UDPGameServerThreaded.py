@@ -3,8 +3,6 @@ import socket
 
 # import the threading module
 import threading
-
-mutex = threading.Semaphore(value=1)
  
 # Initialize the counter
 running = True
@@ -32,9 +30,9 @@ class thread(threading.Thread):
             coordinates = data.decode().split(",")
             #print(data.decode())
             # Update the position of the counter based on the received coordinates
-            mutex.acquire()
+ 
             counters[address] = (int(coordinates[0]), int(coordinates[1]))
-            mutex.release()
+  
  
 socketListener = thread()
 socketListener.daemon = True
@@ -74,12 +72,10 @@ while running:
     screen.fill((0, 0, 0))
 
     # Render the counter
-    mutex.acquire()
     for i, counter_pos in enumerate(counters):
         text = font.render(str(i), True, counter_color)
     
         screen.blit(text, counters[counter_pos])
-    mutex.release()
     
     # Update the display
     pygame.display.update()
