@@ -38,7 +38,7 @@ def reader (p, count):
 
         printf ("reader %d finished reading", p)
     
-        printf ("reader %d resting now. Current readers: %d, and writers:\n", p, readers_reading, writers_writing)
+        printf ("reader %d resting now. Current readers: %d, and writers: %d\n", p, readers_reading, writers_writing)
         time.sleep(randrange(1,5))
 
 def writer (p, count):
@@ -62,11 +62,13 @@ def writer (p, count):
         time.sleep (randrange(1,2))
 
 def main ():
+    print("started")
     start_new(reader, (1, 0))
-    #start_new(consumer,(2,0))
-    #start_new(consumer,(3,0))
-    #start_new(producer,(4,0))
-    writer(5,0)
+    start_new(reader,(2,0))
+    start_new(reader,(3,0))
+    start_new(writer(5,0))
+    reader(4,0)
+    #
 
 
 main ()
